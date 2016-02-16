@@ -1,0 +1,4 @@
+{
+    "api": "http://example.com/path_to_api",
+    "url": "http://example.com/path_to_visualization"
+}
