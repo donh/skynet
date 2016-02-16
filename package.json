@@ -1,0 +1,21 @@
+{
+  "author": {
+    "name": "Don Hsieh",
+    "company": "Cepave"
+  },
+  "name": "Skynet",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/donh/skynet.git"
+  },
+  "devDependencies": {
+    "express": "^4.13.4",
+    "request": "^2.69.0"
+  },
+  "engines": {
+    "node": "0.4.x",
+    "npm": "3.5.x"
+  },
+  "dependencies": {}
+}
