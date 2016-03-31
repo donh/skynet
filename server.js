@@ -46,7 +46,7 @@ app.get('/getUrl', function(req, resp) {
 });
 
 app.get('/getJsonFile', function(req, resp) {
-	fs.readFile(__dirname + '/data/host_alive.json', 'utf-8', function(err, data) {
+	fs.readFile(__dirname + '/data/OWL440_platforms.json', 'utf-8', function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
