@@ -30,19 +30,14 @@ body {
 }
 
 .host_desc {
+	float: left;
 	height: 90px;
 	width: 215px;
-	clear: both;
-	overflow:hidden;
 	z-index: 3;
-	position: fixed;
-	margin-left: 40%;
-	margin-top: 10px;
-	margin-bottom: -100px;
+	margin-top: 30px;
 	padding-left: 10px;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	background: orange;
 	color: white;
 	opacity: 1;
 	-moz-opacity: 1;
