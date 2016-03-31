@@ -74,3 +74,19 @@ body {
 .error {
 	background: red;
 }
+
+.miss {
+	background: blue;
+}
+
+.deactivated {
+	background: gray;
+}
+
+.orange {
+	background: orange;
+}
+
+.pointer {
+	cursor: pointer;
+}
