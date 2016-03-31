@@ -90,3 +90,26 @@ body {
 .pointer {
 	cursor: pointer;
 }
+
+.chartPlaceholder {
+	width: 450px;
+	height: 300px;
+	font-size: 14px;
+	line-height: 1.2em;
+	margin: 20px;
+	float: left;
+}
+
+#tooltip {
+	z-index: 5;
+}
+
+.chartTitle {
+	color: white;
+	font-size: 20px;
+	margin: 0pt auto;
+}
+
+.chartContainer {
+	float: left;
+}
