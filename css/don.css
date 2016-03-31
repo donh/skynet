@@ -61,7 +61,6 @@ body {
 	-moz-box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5);
 	-webkit-box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5);
 	box-shadow: 4px 4px 12px -2px rgba(51, 51, 102, 0.5);
-	cursor: pointer;
 }
 
 .normal {
@@ -72,6 +71,6 @@ body {
 	background: yellow;
 }
 
-.dead {
+.error {
 	background: red;
 }
