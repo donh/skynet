@@ -9,6 +9,26 @@ body {
 	min-height: 100%;
 }
 
+.groupContainer {
+	padding-top: 30px;
+}
+
+.groupWrapper {
+	display: inline-block;
+	width: 100%;
+}
+
+.groupHeading {
+	display: inline-block;
+	width: 100%;
+	font-size: 18px;
+}
+
+.groupTitle {
+	float: left;
+	width: 270px;
+}
+
 .host_desc {
 	height: 90px;
 	width: 215px;
