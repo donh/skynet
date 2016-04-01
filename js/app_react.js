@@ -101,6 +101,10 @@ var lineChartOptions = {
 	colors: ['#669900', '#33B5E5', '#ECBB13', '#FF8800', '#005f81', '#9933CC']
 };
 
+var suffixFormatterAxis = function (val, axis) {
+	return suffixFormatter(val, axis.tickDecimals);
+}
+
 var HostStatus = React.createClass({
 	render: function() {
 		if (this.props.host) {
