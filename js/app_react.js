@@ -191,6 +191,78 @@ var convertData = function (data) {
 	return res;
 };
 
+var mapChartOptions = {
+	calculable: true,
+	backgroundColor: '#404a59',
+	title: {
+		text: 'Error Hosts',
+		left: 'center',
+		textStyle: { color: '#fff' }
+	},
+	tooltip: { trigger: 'item' },
+	geo: {
+		map: 'china',
+		label: {
+			emphasis: { show: false }
+		},
+		roam: true,
+		itemStyle: {
+			normal: {
+				areaColor: '#323c48',
+				borderColor: '#111'
+			},
+			emphasis: { areaColor: '#2a333d' }
+		}
+	},
+	series: [
+		{
+			name: 'Error Hosts',
+			type: 'scatter',
+			coordinateSystem: 'geo',
+			roam: true,
+			selectedMode: 'single',
+			data: [],
+			symbolSize: function (val) { return val[2]; },
+			label: {
+				normal: {
+					formatter: '{b}',
+					position: 'right',
+					show: false
+				},
+				emphasis: { show: true }
+			},
+			itemStyle: {
+				normal: { color: '#ddb926' }
+			}
+		},
+		{
+			name: 'Top 5',
+			type: 'effectScatter',
+			coordinateSystem: 'geo',
+			data: [],
+			symbolSize: function (val) { return val[2]; },
+			showEffectOn: 'render',
+			rippleEffect: { brushType: 'stroke' },
+			hoverAnimation: true,
+			label: {
+				normal: {
+					formatter: '{b}',
+					position: 'right',
+					show: true
+				}
+			},
+			itemStyle: {
+				normal: {
+					color: '#f4e925',
+					shadowBlur: 10,
+					shadowColor: '#333'
+				}
+			},
+			zlevel: 1
+		}
+	]
+};
+
 var HostStatus = React.createClass({
 	render: function() {
 		if (this.props.host) {
