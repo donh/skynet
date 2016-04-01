@@ -470,26 +470,23 @@ var GroupList = React.createClass({
 });
 
 var HostList = React.createClass({
-	updateHostList: function(host) {
-		if (host) {
-			host.time = this.props.data.time;
-		}
-		this.props.updateHostList(host);
-	},
 	render: function() {
-		var result = [];
+		var hosts = this.props.data;
 		if ('result' in this.props.data) {
 			result = this.props.data.result;
 		}
-		var hostNodes = result.map(function(host) {
-			var className = 'rectangle ' + host.status
+		var hostNodes = hosts.map(function(host) {
+			var className = 'rectangle ' + host.status;
+			if (host.status === 'normal' || host.status === 'warm' || host.status === 'error') {
+				className += ' pointer';
+			}
 			return (
-				<Host host={host} hostClassName={className} key={host.id} updateHost={this.updateHostList}>
+				<Host host={host} hostClassName={className} key={host.id} updateHostStatus={this.props.updateHostList} hideHostStatus={this.props.hideHostList} sendURLByHost={this.props.sendURLByHostList} hideStatusByHost={this.props.hideStatusByHostList}>
 				</Host>
 			);
 		}.bind(this));
 		return (
-			<div className="main">
+			<div>
 				{hostNodes}
 			</div>
 		);
