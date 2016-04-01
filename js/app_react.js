@@ -79,6 +79,28 @@ var HostBox = React.createClass({
 	}
 });
 
+var lineChartOptions = {
+	lines: {
+		show: true,
+		fill: true ,
+		fillColor: 'rgba(242, 239, 145, 0.18)'
+	},
+	legend: { show: false },
+	grid: { hoverable: true },
+	xaxis: {
+		mode: "time",
+		timeformat: "%m/%d %H:%M",
+		timezone: "browser",
+		minTickSize: [1, "hour"],
+		font: { color: "#fff" }
+	},
+	yaxis: {
+		tickFormatter: function (v, axis) { return suffixFormatterAxis(v, axis); },
+		font: { color: "#fff" }
+	},
+	colors: ['#669900', '#33B5E5', '#ECBB13', '#FF8800', '#005f81', '#9933CC']
+};
+
 var HostStatus = React.createClass({
 	render: function() {
 		if (this.props.host) {
