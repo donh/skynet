@@ -495,25 +495,29 @@ var HostList = React.createClass({
 
 var Host = React.createClass({
 	mouseOver: function () {
-		this.props.updateHost(this.props.host);
+		this.props.updateHostStatus(this.props.host);
 	},
 	mouseOut: function () {
-		this.props.updateHost(null);
+		this.props.hideHostStatus();
 	},
 	click: function () {
-		$.ajax({
-			url: 'http://localhost/getUrl',
-			dataType: 'json',
-			cache: false,
-			success: function(data) {
-				var url = data + this.props.host.hostname;
-				window.location.href = url;
-			}.bind(this),
-			error: function(xhr, status, err) {
-				console.log('loadConfigFromServer error:');
-				console.error('http://localhost/getUrl', status, err.toString());
-			}.bind(this)
-		});
+		this.props.updateHostStatus(this.props.host);
+		var status = this.props.host.status;
+		if (status === 'normal' || status === 'warm' || status === 'error') {
+			$.ajax({
+				url: 'http://localhost/getUrl',
+				dataType: 'json',
+				cache: false,
+				success: function(data) {
+					var url = data + this.props.host.name + '/all/3d';
+					this.props.sendURLByHost(url);
+				}.bind(this),
+				error: function(xhr, status, err) {
+					console.log('loadConfigFromServer error:');
+					console.error('http://localhost/getUrl', status, err.toString());
+				}.bind(this)
+			});
+		}
 	},
 	render: function() {
 		return (
