@@ -435,6 +435,40 @@ var HostStatus = React.createClass({
 	}
 });
 
+var GroupList = React.createClass({
+	sort: function () {
+		this.props.updateHostStatus(this.props.host);
+	},
+	render: function() {
+		var result = [];
+		var hosts = [];
+		if ('result' in this.props.data) {
+			result = this.props.data.result;
+		}
+		var groupNodes = result.map(function(group) {
+			var hosts = group.hosts;
+			hosts.sort(function(a, b) {
+				return a.status.localeCompare(b.status);
+			});
+			hosts.sort;
+			return (
+				<div className="groupWrapper">
+					<div className="groupHeading">
+						<div className="groupTitle">{group.platformName}</div>
+						<div>{group.platformCount.all}</div>
+					</div>
+					<HostList data={group.hosts} updateHostList={this.props.updateGroupList} hideHostList={this.props.hideGroupList} sendURLByHostList={this.props.sendURLByGroup} hideStatusByHostList={this.props.hideStatusByGroup} />
+				</div>
+			);
+		}.bind(this));
+		return (
+			<div>
+				{groupNodes}
+			</div>
+		);
+	}
+});
+
 var HostList = React.createClass({
 	updateHostList: function(host) {
 		if (host) {
