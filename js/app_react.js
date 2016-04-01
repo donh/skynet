@@ -105,6 +105,15 @@ var suffixFormatterAxis = function (val, axis) {
 	return suffixFormatter(val, axis.tickDecimals);
 }
 
+var suffixFormatter = function (val, decimals) {
+	if (val > 1000000)
+		return (val / 1000000).toFixed(decimals) + " M";
+	else if (val > 1000)
+		return (val / 1000).toFixed(decimals) + " k";
+	else
+		return val.toFixed(decimals);
+}
+
 var HostStatus = React.createClass({
 	render: function() {
 		if (this.props.host) {
