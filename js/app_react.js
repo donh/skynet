@@ -21,19 +21,59 @@ var HostBox = React.createClass({
 		};
 	},
 	componentDidMount: function() {
+		this.setState({
+			classShow: 'hide',
+			ajax: 0
+		});
 		this.loadHostsFromServer();
 		setInterval(this.loadCommentsFromServer, this.props.pollInterval);
 	},
 	handleStatusUpdate: function(host) {
+		if (!this.state.series && !this.state.ajax) {
+			this.setState({
+				host: host,
+				classShow: 'show'
+			});
+		}
+	},
+	handleStatusHide: function(host) {
+		if (!this.state.series && !this.state.ajax) {
+			this.setState({classShow: 'hide'});
+		}
+	},
+	getMetricValues: function(url) {
+		this.setState({ajax: 1});
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+				this.setState({
+					series: data,
+					ajax: 0
+				});
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.log('loadConfigFromServer error:');
+				console.error('getMetricValues()', status, err.toString());
+				this.setState({ajax: 0});
+			}.bind(this)
+		});
+	},
+	hideStatusBar: function() {
 		this.setState({
-			host: host
+			classShow: 'hide',
+			series: false
 		});
 	},
 	render: function() {
 		return (
 			<div className="wrapper">
-				<HostStatus host={this.state.host} />
-				<HostList data={this.state.data} updateHostList={this.handleStatusUpdate} />
+				<HostStatus host={this.state.host} time={this.state.data.time} series={this.state.series} classShow={this.state.classShow} hideStatus={this.hideStatusBar} />
+				<Overview count={this.state.data.count} anomalies={this.state.data.anomalies} />
+				<div className="groupContainer">
+					<GroupList data={this.state.data} updateGroupList={this.handleStatusUpdate} hideGroupList={this.handleStatusHide} sendURLByGroup={this.getMetricValues} hideStatusByGroup={this.hideStatusBar} />
+				</div>
 			</div>
 		);
 	}
