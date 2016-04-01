@@ -326,19 +326,110 @@ var Overview = React.createClass({
 });
 
 var HostStatus = React.createClass({
+	click: function () {
+		this.props.hideStatus();
+	},
 	render: function() {
+		var className = 'host_desc ';
+		var classShow = this.props.classShow;
+		var chartClassName = 'chartPlaceholder';
 		if (this.props.host) {
+			if (this.props.host.status === 'warm') {
+				className += 'orange';
+			} else {
+				className += this.props.host.status;
+			}
+			if (this.props.series) {
+				classShow += ' blackBackground';
+				var cpu = [];
+				var net = [];
+				var obj = {};
+				this.props.series.result.map(function(line) {
+					obj = {
+						label: line.host + '.' + line.metric,
+						shadowSize: 5,
+						data: line.data
+					};
+					if (line.metric.indexOf('net') > -1) {
+						net.push(obj);
+					} else if (line.metric.indexOf('cpu') > -1) {
+						cpu.push(obj);
+					}
+				});
+
+				jQuery("#cpu").css({visibility: "visible"});
+				jQuery("#net").css({visibility: "visible"});
+				$.plot("#cpu", cpu, lineChartOptions);
+				$.plot("#net", net, lineChartOptions);
+
+				$("<div id='tooltip'></div>").css({
+					position: "absolute",
+					display: "none",
+					border: "1px solid #fdd",
+					padding: "2px",
+					"background-color": "#fee",
+					opacity: 0.80
+				}).appendTo("body");
+
+				$("#cpu").bind("plothover", function (event, pos, item) {
+					if (item) {
+						var x = item.datapoint[0],
+							y = suffixFormatter(item.datapoint[1], 1);
+
+						var d = $.plot.dateGenerator(x, {timezone: "browser"});
+						var time = $.plot.formatDate(d, '%Y-%m-%d %H:%M');
+						$("#tooltip")
+							.html('<center>' + time + '</center>' + '<div>' + item.series.label + " = " + y + '</div>')
+							.css({top: item.pageY+5, left: item.pageX+5})
+							.fadeIn(200);
+					} else {
+						$("#tooltip").hide();
+					}
+				});
+				$("#net").bind("plothover", function (event, pos, item) {
+					if (item) {
+						var x = item.datapoint[0],
+							y = suffixFormatter(item.datapoint[1], 1);
+
+						var d = $.plot.dateGenerator(x, {timezone: "browser"});
+						var time = $.plot.formatDate(d, '%Y-%m-%d %H:%M');
+						$("#tooltip")
+							.html('<center>' + time + '</center>' + '<div>' + item.series.label + " = " + y + '</div>')
+							.css({top: item.pageY+5, left: item.pageX+5})
+							.fadeIn(200);
+					} else {
+						$("#tooltip").hide();
+					}
+				});
+			} else {
+				jQuery("#cpu").css({visibility: "hidden"});
+				jQuery("#net").css({visibility: "hidden"});
+			}
 			return (
-				<div ng-show="show_desc" className="host_desc">
-					<div>host: {this.props.host.hostname}</div>
-					<div>status: {this.props.host.status}</div>
-					<div>agent version: {this.props.host.agent_version}</div>
-					<div>time: {this.props.host.time}</div>
+				<div id="statusContainer" className={classShow} onClick={this.click}>
+					<div className="chartContainer" onClick={this.click}>
+						<div className="chartTitle"><center>cpu</center></div>
+						<div id="cpu" className={chartClassName}></div>
+					</div>
+					<div className={className} onClick={this.click}>
+						<div>host: {this.props.host.name}</div>
+						<div>status: {this.props.host.status}</div>
+						<div>agent version: {this.props.host.version}</div>
+						<div>time: {this.props.time}</div>
+					</div>
+					<div className="chartContainer" onClick={this.click}>
+						<div className="chartTitle"><center>net</center></div>
+						<div id="net" className={chartClassName}></div>
+					</div>
 				</div>
 			);
 		} else {
 			return (
-				<div></div>
+				<div id="statusContainer" className={classShow}>
+					<div id="cpu" className="chartPlaceholder"></div>
+					<div className={className}></div>
+					<div id="net" className="chartPlaceholder"></div>
+				</div>
 			);
 		}
 	}
