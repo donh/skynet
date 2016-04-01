@@ -113,3 +113,28 @@ body {
 .chartContainer {
 	float: left;
 }
+
+.hide {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.show {
+	visibility: visible;
+	opacity: 1;
+}
+
+#statusContainer {
+	position: fixed;
+	z-index: 3;
+	clear: both;
+	overflow: hidden;
+	margin-bottom: -500px;
+	box-sizing: border-box;
+	padding: 20px 15px 15px 15px;
+}
+
+.blackBackground {
+	background: #1f1f1f;
+	z-index: 3;
+}
