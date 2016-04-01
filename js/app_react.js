@@ -263,6 +263,68 @@ var mapChartOptions = {
 	]
 };
 
+var Overview = React.createClass({
+	click: function () {
+		this.props.hideStatus();
+	},
+	render: function() {
+		if (this.props.anomalies) {
+			var anomalies = this.props.anomalies;
+			var count = 0;
+			var data = [];
+			for (var provinceName in anomalies) {
+				count = anomalies[provinceName].count;
+				data.push({
+					name: provinceName,
+					value: count
+				});
+			}
+			data.sort(function(a, b) {
+				return b.value - a.value;
+			});
+			var top5 = data.slice(0, 5);
+			mapChartOptions.series[0].data = convertData(data);
+			mapChartOptions.series[1].data = convertData(top5);
+			var myChart = echarts.init(document.getElementById('mapChart'));
+			myChart.setOption(mapChartOptions, true);
+		}
+		if (this.props.count) {
+			var count = this.props.count;
+			var data = [
+				{
+					name: 'deactivated',
+					value: count['deactivated']
+				},
+				{
+					name: 'error',
+					value: count['error']
+				},
+				{
+					name: 'miss',
+					value: count['miss']
+				},
+				{
+					name: 'normal',
+					value: count['normal']
+				},
+				{
+					name: 'warn',
+					value: count['warn']
+				}
+			];
+			roseChartOptions.series[0].data = data;
+			var myChart = echarts.init(document.getElementById('roseChart'));
+			myChart.setOption(roseChartOptions, true);
+		}
+		return (
+			<div>
+				<div id="mapChart" className="chartPlaceholder"></div>
+				<div id="roseChart" className="chartPlaceholder"></div>
+			</div>
+		);
+	}
+});
+
 var HostStatus = React.createClass({
 	render: function() {
 		if (this.props.host) {
