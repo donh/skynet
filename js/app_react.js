@@ -114,6 +114,35 @@ var suffixFormatter = function (val, decimals) {
 		return val.toFixed(decimals);
 }
 
+var roseChartOptions = {
+	calculable: true,
+	tooltip: {
+		trigger: 'item',
+		formatter: '{a} <br/>{b} : {c} ({d}%)'
+	},
+	color: ['gray', 'red', 'blue', 'green', 'orange'],
+	series: [
+		{
+			name: 'Hosts',
+			itemStyle: {
+				emphasis: {
+					label: { show: false },
+					labelLine: { show: false }
+				},
+				normal: {
+					label: { show: false },
+					labelLine: { show: false }
+				}
+			},
+			type: 'pie',
+			radius : [80, 170],
+			center: ['50%', '50%'],
+			roseType: 'area',
+			data: []
+		}
+	]
+};
+
 var HostStatus = React.createClass({
 	render: function() {
 		if (this.props.host) {
