@@ -45,14 +45,104 @@ app.get('/getUrl', function(req, resp) {
 	resp.end();
 });
 
-app.get('/getJsonFile', function(req, resp) {
+app.get('/getBoss', function(req, resp) {
+	fs.readFile(__dirname + '/data/get_ip_boss.json', 'utf-8', function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			resp.writeHead(200, {
+				'Content-Type': 'text/json',
+				'Access-Control-Allow-Origin': '*'
+			});
+			resp.write(data);
+			resp.end();
+		}
+	});
+});
+
+app.get('/getAlarm', function(req, resp) {
+	fs.readFile(__dirname + '/data/alarm.json', 'utf-8', function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			resp.writeHead(200, {
+				'Content-Type': 'text/json',
+				'Access-Control-Allow-Origin': '*'
+			});
+			resp.write(data);
+			resp.end();
+		}
+	});
+});
+
+app.get('/getAgentHealth', function(req, resp) {
 	fs.readFile(__dirname + '/data/OWL440_platforms.json', 'utf-8', function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
 			resp.writeHead(200, {
 				'Content-Type': 'text/json',
-				'Access-Control-Allow-Origin': null
+				'Access-Control-Allow-Origin': '*'
+			});
+			resp.write(data);
+			resp.end();
+		}
+	});
+});
+
+app.get('/getcpunet', function(req, resp) {
+	fs.readFile(__dirname + '/data/OWL416_net.json', 'utf-8', function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			resp.writeHead(200, {
+				'Content-Type': 'text/json',
+				'Access-Control-Allow-Origin': '*'
+			});
+			resp.write(data);
+			resp.end();
+		}
+	});
+});
+
+app.get('/getApolloKeywords', function(req, resp) {
+	fs.readFile(__dirname + '/data/OWL587_Apollo_filters_160512.json', 'utf-8', function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			resp.writeHead(200, {
+				'Content-Type': 'text/json',
+				'Access-Control-Allow-Origin': '*'
+			});
+			resp.write(data);
+			resp.end();
+		}
+	});
+});
+
+app.get('/getApolloCharts', function(req, resp) {
+	fs.readFile(__dirname + '/data/OWL605_Apollo_charts_160512.json', 'utf-8', function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			resp.writeHead(200, {
+				'Content-Type': 'text/json',
+				'Access-Control-Allow-Origin': '*'
+			});
+			resp.write(data);
+			resp.end();
+		}
+	});
+});
+
+app.get('/getPacketLossRate', function(req, resp) {
+	fs.readFile(__dirname + '/data/OWL632_packetLossRate.json', 'utf-8', function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			resp.writeHead(200, {
+				'Content-Type': 'text/json',
+				'Access-Control-Allow-Origin': '*'
 			});
 			resp.write(data);
 			resp.end();
