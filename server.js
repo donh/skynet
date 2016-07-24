@@ -45,7 +45,7 @@ app.get('/getUrl', function(req, resp) {
 	resp.end();
 });
 
-app.get('/getBoss', function(req, resp) {
+app.get('/boss', function(req, resp) {
 	fs.readFile(__dirname + '/data/get_ip_boss.json', 'utf-8', function(err, data) {
 		if (err) {
 			console.log(err);
@@ -60,7 +60,7 @@ app.get('/getBoss', function(req, resp) {
 	});
 });
 
-app.get('/getAlarm', function(req, resp) {
+app.get('/alarm', function(req, resp) {
 	fs.readFile(__dirname + '/data/alarm.json', 'utf-8', function(err, data) {
 		if (err) {
 			console.log(err);
@@ -75,7 +75,7 @@ app.get('/getAlarm', function(req, resp) {
 	});
 });
 
-app.get('/getAgentHealth', function(req, resp) {
+app.get('/health', function(req, resp) {
 	fs.readFile(__dirname + '/data/OWL440_platforms.json', 'utf-8', function(err, data) {
 		if (err) {
 			console.log(err);
@@ -105,8 +105,8 @@ app.get('/getcpunet', function(req, resp) {
 	});
 });
 
-app.get('/getApolloKeywords', function(req, resp) {
-	fs.readFile(__dirname + '/data/OWL587_Apollo_filters_160512.json', 'utf-8', function(err, data) {
+app.get('/filters', function(req, resp) {
+	fs.readFile(__dirname + '/data/apollo.json', 'utf-8', function(err, data) {
 		if (err) {
 			console.log(err);
 		} else {
